@@ -1,8 +1,27 @@
-﻿@{
+﻿@model IEnumerable<MyRole>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Roles Test</h1>
+</div>
+<div>
+    @{
+        if (Model != null)
+        {
+
+            foreach (var item in Model)
+            {
+                <div>
+                    RoleId => @item.Id <br>
+                    RoleName => @item.Name <br>
+                    Controller_Name => @item.Controller_Name <br>
+                    ActionName => @item.Action_Name <br>
+                    =============================================== <br>
+                </div>
+            }
+        }
+    }
 </div>

@@ -18,20 +18,18 @@ public class HomeController : Controller
         db = _db;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
 
-        var roles = db.Roles.ToList();
-        foreach (var item in roles)
+        var roles = await db.Roles.ToListAsync();
+        var role_list = db.GetRoles();
+        if (roles.Count() == 0)
         {
-            Console.WriteLine("RoleId =>" + item.Id);
-            Console.WriteLine("RoleName =>" + item.Name);
-            Console.WriteLine("Controller_Name =>" + item.Controller_Name);
-            Console.WriteLine("actionName => " + item.Action_Name);
-            Console.WriteLine("===============================================");
-
+            db.Roles.AddRange(role_list);
+            await db.SaveChangesAsync();
         }
-        return View();
+        roles = await db.Roles.ToListAsync();
+        return View(roles);
     }
 
     public IActionResult Privacy()
